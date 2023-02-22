@@ -15,7 +15,6 @@ const variable = categoryService.getAll();
 //console.log(variable.then((value) => console.log(value)))
 
 const updatedCategory: ICategory = {
-    id: 3,
     categoryName: 'SIN_CANABIS',
     photoType: TypePhoto.document,
     categoriesParentId: 56
@@ -29,7 +28,6 @@ categoryService.update(3, updatedCategory).then((value) => console.log(value));
 
 
 const updatePerson: IPerson = {
-    id: 5,
     personName: 'Eduardo Emilio Reyes',
     address: 'Los Cedros, 8239, Avenue',
     email: 'eduard.reyese@gmail.com',

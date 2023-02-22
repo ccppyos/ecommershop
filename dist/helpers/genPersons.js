@@ -45,7 +45,6 @@ const genPersons = (n) => {
     for (let i = 0; i < n; i++) {
         const [firstName, secondName, lastName] = personNameGen();
         const person = {
-            id: i + 1,
             personName: `${firstName} ${secondName} ${lastName}`,
             address: addressGen(),
             email: emailGen(firstName, secondName, lastName),

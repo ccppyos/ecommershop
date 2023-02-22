@@ -15,56 +15,31 @@ const genPersons_1 = require("../helpers/genPersons");
 class SuppliersService {
     constructor() {
         this.supplierModel = new ModelData_1.ModelData();
-        this.supplierModel.loadData((0, genPersons_1.genPersons)(5));
+        this.supplierModel.loadData((0, genPersons_1.genPersons)(10));
     }
     create(data) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                return yield this.supplierModel.create(data);
-            }
-            catch (error) {
-                console.log(error);
-            }
+            return yield this.supplierModel.create(data);
         });
     }
     getAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                return yield this.supplierModel.find();
-            }
-            catch (error) {
-                console.log(error);
-            }
+            return yield this.supplierModel.find();
         });
     }
     getOneById(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                return yield this.supplierModel.findById(id);
-            }
-            catch (error) {
-                console.log(error);
-            }
+            return yield this.supplierModel.findById(id);
         });
     }
     update(id, data) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                return yield this.supplierModel.updateOneById(id, data);
-            }
-            catch (error) {
-                console.log(error);
-            }
+            return yield this.supplierModel.updateOneById(id, data);
         });
     }
     remove(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                return yield this.supplierModel.deleteOneById(id);
-            }
-            catch (error) {
-                console.log(error);
-            }
+            return yield this.supplierModel.deleteOneById(id);
         });
     }
 }

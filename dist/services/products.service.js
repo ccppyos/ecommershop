@@ -21,52 +21,27 @@ class ProductsService {
     }
     create(data) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                return yield this.productsModel.create(data);
-            }
-            catch (error) {
-                console.log(error);
-            }
+            return yield this.productsModel.create(data);
         });
     }
     getAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                return yield this.productsModel.find();
-            }
-            catch (error) {
-                console.log(error);
-            }
+            return yield this.productsModel.find();
         });
     }
     getOneById(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                return yield this.productsModel.findById(id);
-            }
-            catch (error) {
-                console.log(error);
-            }
+            return yield this.productsModel.findById(id);
         });
     }
     update(id, data) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                return yield this.productsModel.updateOneById(id, data);
-            }
-            catch (error) {
-                console.log(error);
-            }
+            return yield this.productsModel.updateOneById(id, data);
         });
     }
     remove(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                return yield this.productsModel.deleteOneById(id);
-            }
-            catch (error) {
-                console.log(error);
-            }
+            return yield this.productsModel.deleteOneById(id);
         });
     }
 }

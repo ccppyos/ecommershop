@@ -3,11 +3,18 @@ import cors from 'cors';
 import { corsOptions } from '../config/cors-options';
 import {join} from 'path'
 import { publicRoutes } from '../routes/public.routes';
+import { categoriesRoutes } from '../routes/categories.routes';
+import { suppliersRoutes } from '../routes/suppliers.routes';
+import { productsRoutes } from '../routes/products.routes';
+import { db } from '../database/connectiondb';
 export class Server {
     private app: Application;
     private port: number | string;
     private path= {
-        public:'/'
+        public:'/',
+        categories:'/api/categories',
+        suppliers:'/api/suppliers',
+        products:'/api/products'
 
     }
 
@@ -28,7 +35,12 @@ export class Server {
 
     }
     private async connectToDB() {
-
+        // try {
+        //     await db.authenticate();
+        //     console.log('Data connected')
+        // } catch (error) {
+        //     throw new Error(error as any);
+        // }
     }
 
     private setMiddlewares() {
@@ -40,6 +52,9 @@ export class Server {
     }
 
     private setRoutes() {
+        this.app.use(this.path.suppliers, suppliersRoutes);
+        this.app.use(this.path.categories, categoriesRoutes);
+        this.app.use(this.path.products, productsRoutes);
         this.app.use(this.path.public, publicRoutes);
     }
 

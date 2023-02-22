@@ -19,52 +19,27 @@ class CategoriesService {
     }
     create(data) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                return yield this.categoryModel.create(data);
-            }
-            catch (error) {
-                console.log(error);
-            }
+            return yield this.categoryModel.create(data);
         });
     }
     getAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                return yield this.categoryModel.find();
-            }
-            catch (error) {
-                console.log(error);
-            }
+            return yield this.categoryModel.find();
         });
     }
     getOneById(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                return yield this.categoryModel.findById(id);
-            }
-            catch (error) {
-                console.log(error);
-            }
+            return yield this.categoryModel.findById(id);
         });
     }
     update(id, data) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                return yield this.categoryModel.updateOneById(id, data);
-            }
-            catch (error) {
-                console.log(error);
-            }
+            return yield this.categoryModel.updateOneById(id, data);
         });
     }
     remove(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                return yield this.categoryModel.deleteOneById(id);
-            }
-            catch (error) {
-                console.log(error);
-            }
+            return yield this.categoryModel.deleteOneById(id);
         });
     }
 }

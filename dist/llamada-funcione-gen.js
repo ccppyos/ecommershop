@@ -10,7 +10,6 @@ let productsService = new products_service_1.ProductsService(5);
 const variable = categoryService.getAll();
 //console.log(variable.then((value) => console.log(value)))
 const updatedCategory = {
-    id: 3,
     categoryName: 'SIN_CANABIS',
     photoType: type_photo_enum_1.TypePhoto.document,
     categoriesParentId: 56
@@ -20,7 +19,6 @@ categoryService.update(3, updatedCategory).then((value) => console.log(value));
 //     console.log("LAST", value);
 // });
 const updatePerson = {
-    id: 5,
     personName: 'Eduardo Emilio Reyes',
     address: 'Los Cedros, 8239, Avenue',
     email: 'eduard.reyese@gmail.com',

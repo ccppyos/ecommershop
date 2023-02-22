@@ -2,7 +2,6 @@ import { ICategory } from "../interfaces/category.interface";
 import { IPerson } from "../interfaces/person.interface";
 
 export interface IProduct {
-    id: number,
     productName: string,
     weight: number,
     cannabisWeight: number,
@@ -22,6 +21,6 @@ export interface IProduct {
     inventory: number,
     discountAmount: number,
     productscol: string,
-    category: ICategory,
-    supplier: IPerson,
+    categoryId: number,
+    supplierId: number,
 }

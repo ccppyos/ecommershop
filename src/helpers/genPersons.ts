@@ -59,7 +59,6 @@ export const genPersons = (n: number): IPerson[] => {
     for (let i: number = 0; i < n; i++) {
         const [firstName, secondName, lastName]: string[] = personNameGen();
         const person: IPerson = {
-            id: i + 1,
             personName: `${firstName} ${secondName} ${lastName}`,
             address: addressGen(),
             email: emailGen(firstName, secondName, lastName),

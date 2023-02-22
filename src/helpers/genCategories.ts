@@ -19,7 +19,6 @@ export const genCategories = (): ICategory[] => {
             photoType = TypePhoto.kml;
         }
         const category: ICategory = {
-            id: i + 1,
             categoryName: CATEGORIES[i],
             photoType,
             categoriesParentId: Math.floor(Math.random() * i)

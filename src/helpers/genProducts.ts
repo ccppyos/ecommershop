@@ -9,7 +9,7 @@ import { randomInt, randomFloatTwoDig, randomDate } from './tools';
 
 const skuGen = (id: number, supplier: IPerson, category: ICategory): string => {
 
-    const supplierCode: string = supplier.personName.substring(0, 2) + (supplier.id + 1000).toString().substring(1, 4);
+    const supplierCode: string = supplier.personName.substring(0, 2) ;
     const categoryCode: string = category.categoryName.substring(0, 2);
     const idFormated: string = (1000 + id).toString().substring(1, 4);
 
@@ -75,13 +75,15 @@ const randomImageUrl = (id:number):string => {
 
 
 //la función también recibe el tipo que devuelve
-export const genProducts = (feePercent: number, categories: ICategory[], suppliers: IPerson[]): IProduct[] => {
+export const genProducts = (feePercent: number, categoriesRecords: ICategory[], suppliersRecord: IPerson[]): IProduct[] => {
     let products: IProduct[] = [];
     const UPCPrefix = randomInt(10000000).toString()
     for (let i: number = 0; i < PRODUCTS.length; i++) {
 
-        const supplier = suppliers[Math.floor(Math.random() * products.length)];
-        const category = categories[Math.floor(Math.random() * categories.length)];
+        const supplier = suppliersRecord[Math.floor(Math.random() * suppliersRecord.length)];
+        const supplierId = Math.floor(Math.random() * suppliersRecord.length);
+        const category = categoriesRecords[Math.floor(Math.random() * categoriesRecords.length)];
+        const categoryId = Math.floor(Math.random() * categoriesRecords.length);
         const createDate = randomDate(new Date(2018, 0, 1), new Date(2023, 0, 1));
         const weight = randomInt(11) * 10;
         const price = priceGen();
@@ -89,10 +91,9 @@ export const genProducts = (feePercent: number, categories: ICategory[], supplie
         const id = i + 1
 
         const product: IProduct = {
-            id: id,
             productName: PRODUCTS[i],
-            supplier: supplier,
-            category: category,
+            supplierId: supplierId,
+            categoryId: categoryId,
             weight: weight,
             cannabisWeight: randomInt(10),
             price: price,

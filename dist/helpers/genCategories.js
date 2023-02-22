@@ -19,7 +19,6 @@ const genCategories = () => {
             photoType = type_photo_enum_1.TypePhoto.kml;
         }
         const category = {
-            id: i + 1,
             categoryName: category_1.CATEGORIES[i],
             photoType,
             categoriesParentId: Math.floor(Math.random() * i)

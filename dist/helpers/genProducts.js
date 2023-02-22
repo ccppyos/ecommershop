@@ -5,7 +5,7 @@ exports.genProducts = void 0;
 const products_1 = require("../data/products");
 const tools_1 = require("./tools");
 const skuGen = (id, supplier, category) => {
-    const supplierCode = supplier.personName.substring(0, 2) + (supplier.id + 1000).toString().substring(1, 4);
+    const supplierCode = supplier.personName.substring(0, 2);
     const categoryCode = category.categoryName.substring(0, 2);
     const idFormated = (1000 + id).toString().substring(1, 4);
     const sku = (supplierCode + categoryCode + idFormated).toUpperCase();
@@ -52,22 +52,23 @@ const randomImageUrl = (id) => {
     return `https://source.unsplash.com/random/200x200?sig=${id}`;
 };
 //la función también recibe el tipo que devuelve
-const genProducts = (feePercent, categories, suppliers) => {
+const genProducts = (feePercent, categoriesRecords, suppliersRecord) => {
     let products = [];
     const UPCPrefix = (0, tools_1.randomInt)(10000000).toString();
     for (let i = 0; i < products_1.PRODUCTS.length; i++) {
-        const supplier = suppliers[Math.floor(Math.random() * products.length)];
-        const category = categories[Math.floor(Math.random() * categories.length)];
+        const supplier = suppliersRecord[Math.floor(Math.random() * suppliersRecord.length)];
+        const supplierId = Math.floor(Math.random() * suppliersRecord.length);
+        const category = categoriesRecords[Math.floor(Math.random() * categoriesRecords.length)];
+        const categoryId = Math.floor(Math.random() * categoriesRecords.length);
         const createDate = (0, tools_1.randomDate)(new Date(2018, 0, 1), new Date(2023, 0, 1));
         const weight = (0, tools_1.randomInt)(11) * 10;
         const price = priceGen();
         const feeValue = feePercent / 100;
         const id = i + 1;
         const product = {
-            id: id,
             productName: products_1.PRODUCTS[i],
-            supplier: supplier,
-            category: category,
+            supplierId: supplierId,
+            categoryId: categoryId,
             weight: weight,
             cannabisWeight: (0, tools_1.randomInt)(10),
             price: price,

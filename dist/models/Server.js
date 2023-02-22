@@ -18,10 +18,16 @@ const cors_1 = __importDefault(require("cors"));
 const cors_options_1 = require("../config/cors-options");
 const path_1 = require("path");
 const public_routes_1 = require("../routes/public.routes");
+const categories_routes_1 = require("../routes/categories.routes");
+const suppliers_routes_1 = require("../routes/suppliers.routes");
+const products_routes_1 = require("../routes/products.routes");
 class Server {
     constructor() {
         this.path = {
-            public: '/'
+            public: '/',
+            categories: '/api/categories',
+            suppliers: '/api/suppliers',
+            products: '/api/products'
         };
         // Inicializar atributos
         this.app = (0, express_1.default)();
@@ -37,6 +43,12 @@ class Server {
     }
     connectToDB() {
         return __awaiter(this, void 0, void 0, function* () {
+            // try {
+            //     await db.authenticate();
+            //     console.log('Data connected')
+            // } catch (error) {
+            //     throw new Error(error as any);
+            // }
         });
     }
     setMiddlewares() {
@@ -47,6 +59,9 @@ class Server {
         this.app.use(express_1.default.json());
     }
     setRoutes() {
+        this.app.use(this.path.suppliers, suppliers_routes_1.suppliersRoutes);
+        this.app.use(this.path.categories, categories_routes_1.categoriesRoutes);
+        this.app.use(this.path.products, products_routes_1.productsRoutes);
         this.app.use(this.path.public, public_routes_1.publicRoutes);
     }
     listen() {
