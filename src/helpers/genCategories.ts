@@ -21,7 +21,6 @@ export const genCategories = (): ICategory[] => {
         const category: ICategory = {
             categoryName: CATEGORIES[i],
             photoType,
-            //categoriesParent_id: Math.floor(Math.random() * i)
         }
         categories.push(category);
     }

@@ -22,12 +22,10 @@ export class ModelData<T>{
         this._records.push(record);
         return record;
     }
-    //Se trabaja con promesa porque se trata de simular a una bd
     public create(record: T): Promise<IData<T>> {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 if (record) {
-                    //IMO: debería recibir el nombre de data puesto que al momento de crear el record se pasa record => Data => record
                     resolve(this._createRecord(record))
                 }
             }, 500);
@@ -54,8 +52,6 @@ export class ModelData<T>{
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 let recordFound: IData<T> | undefined;
-                //Se considera que recordfound puede no ser encontrado y terminar en 
-                //undefined, en tal sentido se declara | undefined
                 this._records = this._records.map(record => {
                     if (record._id === id) {
                         recordFound = { ...record, data };

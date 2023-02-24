@@ -13,6 +13,7 @@ import { ProductsService } from './products.service';
 const categoriesService = new CategoriesService();
 const suppliersService = new SuppliersService();
 const productsService = new ProductsService();
+
 export class SeedService {
 
     private suppliers: IData<ISupplier>[];

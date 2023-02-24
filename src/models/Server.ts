@@ -8,6 +8,7 @@ import { suppliersRoutes } from '../routes/suppliers.routes';
 import { productsRoutes } from '../routes/products.routes';
 import { db } from '../database/connectiondb';
 import { seedRoutes } from '../routes/seed.routes';
+
 export class Server {
     private app: Application;
     private port: number | string;
@@ -43,8 +44,6 @@ export class Server {
     }
 
     private setMiddlewares() {
-        //Cuando se usa middlewares, se usa la función use( )
-        //Para no recibir ataques se definen opciones para cors
         this.app.use(cors(corsOptions));
         this.app.use(express.static(join(__dirname, '../../public/')));
         this.app.use(express.json());

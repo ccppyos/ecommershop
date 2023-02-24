@@ -1,8 +1,6 @@
 import { Request, Response } from 'express';
 import { fail, success } from '../helpers/apiResponses';
 import { CategoriesService } from '../services/categories.service';
-import { IData } from '../interfaces/datamodel.interface';
-import { ICategory } from '../interfaces/category.interface';
 
 const categoryService = new CategoriesService()
 
@@ -21,11 +19,6 @@ export class CategoriesController {
     async getAll(req: Request, res: Response) {
         try {
             const categories = await categoryService.getAll();
-            // const categoriesFormated = categories.map((category: ICategory | any) => {
-            //     const { _id, data } = category as IData<ICategory>;
-            //     console.log(category)
-            //     return { _id, ...data }
-            // })
             success(res, categories)
         } catch (error) {
             fail(res, error)

@@ -1,6 +1,5 @@
 import { ISupplier } from '../interfaces/supplier.interface';
 import { ModelData } from '../models/ModelData';
-import { genSuppliers } from '../helpers/genSuppliers';
 import { Supplier } from '../models/supplier';
 
 export class SuppliersService {
@@ -11,7 +10,6 @@ export class SuppliersService {
     }
 
     async create(data: ISupplier) {
-        //return await this.supplierModel.create(data);
         return await Supplier.create({...data});
     }
 
