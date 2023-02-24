@@ -1,15 +1,14 @@
 //diferencia es que solamente se coloca el import
 import { PRODUCTS } from "../data/products";
 import { ICategory } from '../interfaces/category.interface';
-import { IPerson } from '../interfaces/person.interface';
+import { ISupplier } from '../interfaces/supplier.interface';
 import { IProduct } from "../interfaces/product.interface";
 import { randomInt, randomFloatTwoDig, randomDate } from './tools';
+import { IData } from '../interfaces/datamodel.interface';
 
+const skuGen = (id: number, supplier: ISupplier, category: ICategory): string => {
 
-
-const skuGen = (id: number, supplier: IPerson, category: ICategory): string => {
-
-    const supplierCode: string = supplier.personName.substring(0, 2) ;
+    const supplierCode: string = supplier.supplierName.substring(0, 2);
     const categoryCode: string = category.categoryName.substring(0, 2);
     const idFormated: string = (1000 + id).toString().substring(1, 4);
 
@@ -32,7 +31,7 @@ const weightGen = () => {
 }
 
 const priceGen = () => {
-    const price = randomInt(5, 100) + (randomInt(2) ? 0 : 0.99)
+    const price = randomInt(5, 100)
     return price;
 }
 
@@ -50,9 +49,9 @@ const salesPriceGen = (price: number): number => {
     return salesPriceRounded;
 }
 
-const productSlugGen = (id: number, productName: string, category: ICategory, weight:number): string => {
+const productSlugGen = (id: number, productName: string, category: ICategory, weight: number): string => {
 
-    const prodNameShort: string = productName.substring(0,2);
+    const prodNameShort: string = productName.substring(0, 2);
     const categoryCode: string = category.categoryName.substring(0, 2);
     const idFormated: string = (1000 + id).toString().substring(1, 4);
     const productSlug = (categoryCode + prodNameShort + idFormated).toUpperCase();
@@ -60,30 +59,31 @@ const productSlugGen = (id: number, productName: string, category: ICategory, we
     return productSlug;
 }
 
-const fullNameGen = (productName: string,  weight:number): string => {
+const fullNameGen = (productName: string, weight: number): string => {
     return `${productName.toUpperCase()} ${weight} mg`;
 }
 
-const descriptionGen = (productName: string,  weight:number): string => {
+const descriptionGen = (productName: string, weight: number): string => {
     return `This is a random description for ${productName.toUpperCase()} ${weight} mg`;
 }
 
-const randomImageUrl = (id:number):string => {
+const randomImageUrl = (id: number): string => {
     return `https://source.unsplash.com/random/200x200?sig=${id}`
 }
 
 
 
 //la función también recibe el tipo que devuelve
-export const genProducts = (feePercent: number, categoriesRecords: ICategory[], suppliersRecord: IPerson[]): IProduct[] => {
+export const genProducts = (feePercent: number, categoriesRecords: IData<ICategory>[], suppliersRecord: IData<ISupplier>[]): IProduct[] => {
     let products: IProduct[] = [];
     const UPCPrefix = randomInt(10000000).toString()
     for (let i: number = 0; i < PRODUCTS.length; i++) {
-
-        const supplier = suppliersRecord[Math.floor(Math.random() * suppliersRecord.length)];
-        const supplierId = Math.floor(Math.random() * suppliersRecord.length);
-        const category = categoriesRecords[Math.floor(Math.random() * categoriesRecords.length)];
-        const categoryId = Math.floor(Math.random() * categoriesRecords.length);
+        const ranSupplierIndex = Math.floor(Math.random() * suppliersRecord.length)
+        const ranCategoryIndex = Math.floor(Math.random() * categoriesRecords.length)
+        const supplier = suppliersRecord[ranSupplierIndex].data;
+        const supplierId = suppliersRecord[ranSupplierIndex]._id;
+        const category = categoriesRecords[ranCategoryIndex].data;
+        const categoryId = categoriesRecords[ranCategoryIndex]._id;
         const createDate = randomDate(new Date(2018, 0, 1), new Date(2023, 0, 1));
         const weight = randomInt(11) * 10;
         const price = priceGen();
@@ -91,9 +91,9 @@ export const genProducts = (feePercent: number, categoriesRecords: ICategory[], 
         const id = i + 1
 
         const product: IProduct = {
-            productName: PRODUCTS[i],
-            supplierId: supplierId,
-            categoryId: categoryId,
+            name: PRODUCTS[i],
+            supplier_id: supplierId,
+            category_id: categoryId,
             weight: weight,
             cannabisWeight: randomInt(10),
             price: price,
@@ -106,7 +106,7 @@ export const genProducts = (feePercent: number, categoriesRecords: ICategory[], 
             isActive: true,
             createDate: createDate,
             updateDate: randomDate(createDate, new Date()),
-            fullProductName: fullNameGen(PRODUCTS[i], weight), 
+            fullProductName: fullNameGen(PRODUCTS[i], weight),
             productSlug: productSlugGen(id, PRODUCTS[i], category, weight),
             salesPrice: salesPriceGen(price),
             inventory: randomInt(200),

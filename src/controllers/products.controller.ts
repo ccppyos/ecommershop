@@ -2,13 +2,13 @@ import { Request, Response } from 'express';
 import { fail, success } from '../helpers/apiResponses';
 import { ProductsService } from '../services/products.service';
 
-const productsService = new ProductsService(10)
+const productsService = new ProductsService();
 
 export class ProductsController {
     async create(req: Request, res: Response) {
         try {
             const {
-                productName,
+                name,
                 weight,
                 cannabisWeight,
                 price,
@@ -27,11 +27,11 @@ export class ProductsController {
                 inventory,
                 discountAmount,
                 productscol,
-                categoryId,
-                supplierId
+                category_id,
+                supplier_id
             } = req.body
             const product = await productsService.create({
-                productName,
+                name,
                 weight,
                 cannabisWeight,
                 price,
@@ -50,10 +50,10 @@ export class ProductsController {
                 inventory,
                 discountAmount,
                 productscol,
-                categoryId,
-                supplierId
+                category_id,
+                supplier_id
             })
-            success(res, product)
+            success(res, product);
         } catch (error) {
             fail(res, error)
         }
@@ -61,7 +61,7 @@ export class ProductsController {
     async getAll(req: Request, res: Response) {
         try {
             const products = await productsService.getAll()
-            res.json(products)
+           success(res,products);
         } catch (error) {
             fail(res, error)
         }
@@ -80,7 +80,7 @@ export class ProductsController {
     async update(req: Request, res: Response) {
         try {
             const { id } = req.params;
-            const { productName,
+            const { name,
                 weight,
                 cannabisWeight,
                 price,
@@ -99,10 +99,10 @@ export class ProductsController {
                 inventory,
                 discountAmount,
                 productscol,
-                categoryId,
-                supplierId } = req.body
+                category_id,
+                supplier_id } = req.body
             const product = await productsService.update(+id, {
-                productName,
+                name,
                 weight,
                 cannabisWeight,
                 price,
@@ -121,8 +121,8 @@ export class ProductsController {
                 inventory,
                 discountAmount,
                 productscol,
-                categoryId,
-                supplierId
+                category_id,
+                supplier_id
             });
             success(res, product)
         } catch (error) {

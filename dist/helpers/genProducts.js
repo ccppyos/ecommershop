@@ -5,7 +5,7 @@ exports.genProducts = void 0;
 const products_1 = require("../data/products");
 const tools_1 = require("./tools");
 const skuGen = (id, supplier, category) => {
-    const supplierCode = supplier.personName.substring(0, 2);
+    const supplierCode = supplier.supplierName.substring(0, 2);
     const categoryCode = category.categoryName.substring(0, 2);
     const idFormated = (1000 + id).toString().substring(1, 4);
     const sku = (supplierCode + categoryCode + idFormated).toUpperCase();
@@ -21,7 +21,7 @@ const weightGen = () => {
     return (0, tools_1.randomInt)(11) * 10;
 };
 const priceGen = () => {
-    const price = (0, tools_1.randomInt)(5, 100) + ((0, tools_1.randomInt)(2) ? 0 : 0.99);
+    const price = (0, tools_1.randomInt)(5, 100);
     return price;
 };
 const feeCalculation = (price, feeValue) => {
@@ -56,19 +56,21 @@ const genProducts = (feePercent, categoriesRecords, suppliersRecord) => {
     let products = [];
     const UPCPrefix = (0, tools_1.randomInt)(10000000).toString();
     for (let i = 0; i < products_1.PRODUCTS.length; i++) {
-        const supplier = suppliersRecord[Math.floor(Math.random() * suppliersRecord.length)];
-        const supplierId = Math.floor(Math.random() * suppliersRecord.length);
-        const category = categoriesRecords[Math.floor(Math.random() * categoriesRecords.length)];
-        const categoryId = Math.floor(Math.random() * categoriesRecords.length);
+        const ranSupplierIndex = Math.floor(Math.random() * suppliersRecord.length);
+        const ranCategoryIndex = Math.floor(Math.random() * categoriesRecords.length);
+        const supplier = suppliersRecord[ranSupplierIndex].data;
+        const supplierId = suppliersRecord[ranSupplierIndex]._id;
+        const category = categoriesRecords[ranCategoryIndex].data;
+        const categoryId = categoriesRecords[ranCategoryIndex]._id;
         const createDate = (0, tools_1.randomDate)(new Date(2018, 0, 1), new Date(2023, 0, 1));
         const weight = (0, tools_1.randomInt)(11) * 10;
         const price = priceGen();
         const feeValue = feePercent / 100;
         const id = i + 1;
         const product = {
-            productName: products_1.PRODUCTS[i],
-            supplierId: supplierId,
-            categoryId: categoryId,
+            name: products_1.PRODUCTS[i],
+            supplier_id: supplierId,
+            category_id: categoryId,
             weight: weight,
             cannabisWeight: (0, tools_1.randomInt)(10),
             price: price,

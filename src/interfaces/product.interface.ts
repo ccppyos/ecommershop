@@ -1,8 +1,5 @@
-import { ICategory } from "../interfaces/category.interface";
-import { IPerson } from "../interfaces/person.interface";
-
 export interface IProduct {
-    productName: string,
+    name: string,
     weight: number,
     cannabisWeight: number,
     price: number,
@@ -21,6 +18,6 @@ export interface IProduct {
     inventory: number,
     discountAmount: number,
     productscol: string,
-    categoryId: number,
-    supplierId: number,
+    category_id: number,
+    supplier_id: number,
 }

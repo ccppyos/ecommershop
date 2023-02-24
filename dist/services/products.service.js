@@ -11,37 +11,43 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductsService = void 0;
 const ModelData_1 = require("../models/ModelData");
-const genPersons_1 = require("../helpers/genPersons");
-const genProducts_1 = require("../helpers/genProducts");
-const genCategories_1 = require("../helpers/genCategories");
+const product_1 = require("../models/product");
 class ProductsService {
-    constructor(feePercent) {
+    constructor() {
         this.productsModel = new ModelData_1.ModelData();
-        this.productsModel.loadData((0, genProducts_1.genProducts)(feePercent, (0, genCategories_1.genCategories)(), (0, genPersons_1.genPersons)(10)));
+        //this.productsModel.loadData(genProducts(feePercent, genCategories(), genPersons(10)))
     }
     create(data) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.productsModel.create(data);
+            //return await this.productsModel.create(data);
+            return yield product_1.Product.create(Object.assign({}, data));
         });
     }
     getAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.productsModel.find();
+            //return await this.productsModel.find()
+            return yield product_1.Product.findAll();
         });
     }
     getOneById(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.productsModel.findById(id);
+            const product = yield product_1.Product.findByPk(id);
+            if (!product) {
+                throw new Error(`Product with ${id} not found`);
+            }
+            return product;
         });
     }
     update(id, data) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.productsModel.updateOneById(id, data);
+            const product = yield this.getOneById(id);
+            return yield product.update(Object.assign({}, data));
         });
     }
     remove(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.productsModel.deleteOneById(id);
+            const product = yield this.getOneById(id);
+            return yield product.destroy();
         });
     }
 }

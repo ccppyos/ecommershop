@@ -11,35 +11,42 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SuppliersService = void 0;
 const ModelData_1 = require("../models/ModelData");
-const genPersons_1 = require("../helpers/genPersons");
+const supplier_1 = require("../models/supplier");
 class SuppliersService {
     constructor() {
         this.supplierModel = new ModelData_1.ModelData();
-        this.supplierModel.loadData((0, genPersons_1.genPersons)(10));
+        //this.supplierModel.loadData(genPersons(10))
     }
     create(data) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.supplierModel.create(data);
+            //return await this.supplierModel.create(data);
+            return yield supplier_1.Supplier.create(Object.assign({}, data));
         });
     }
     getAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.supplierModel.find();
+            return yield supplier_1.Supplier.findAll();
         });
     }
     getOneById(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.supplierModel.findById(id);
+            const supplier = yield supplier_1.Supplier.findByPk(id);
+            if (!supplier) {
+                throw new Error(`Supplier with ${id} not found`);
+            }
+            return supplier;
         });
     }
     update(id, data) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.supplierModel.updateOneById(id, data);
+            const supplier = yield this.getOneById(id);
+            return yield supplier.update(Object.assign({}, data));
         });
     }
     remove(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.supplierModel.deleteOneById(id);
+            const supplier = yield this.getOneById(id);
+            return yield supplier.destroy();
         });
     }
 }

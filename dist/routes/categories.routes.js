@@ -17,24 +17,24 @@ exports.categoriesRoutes.get('/:id', [
     valid_fields_middleware_1.ValidFields
 ], categoriesController.getOne);
 exports.categoriesRoutes.post('/', [
-    (0, express_validator_1.check)('categoryName', 'categoryName is required').not().isEmpty(),
+    (0, express_validator_1.check)('categoryName', 'categoryName is required').notEmpty(),
     (0, express_validator_1.check)('categoryName', 'categoryName must be max ').isLength({ max: 45 }),
-    (0, express_validator_1.check)('photoType', 'photoType is required').not().isEmpty(),
+    (0, express_validator_1.check)('photoType', 'photoType is required').notEmpty(),
     (0, express_validator_1.check)('photoType', 'photoType must be max ').isLength({ max: 45 }),
     (0, express_validator_1.check)('photoType', 'photoType is enum "Photo, Document or KML').custom(valid_phototype_1.validPhotoType),
-    (0, express_validator_1.check)('categoriesParentId', 'categoriesParentId must be a number value').isNumeric(),
+    (0, express_validator_1.check)('categoriesParent_id', 'categoriesParent_id must be a number value').optional().isNumeric(),
     valid_fields_middleware_1.ValidFields
 ], categoriesController.create);
 exports.categoriesRoutes.put('/:id', [
     //En put algunos campos pueden ser opcionales
     (0, express_validator_1.check)('id', 'Id param must be a number value').isNumeric(),
     (0, express_validator_1.check)('id', 'Id param must be a number from 1 to 32').isInt({ min: 1, max: 32 }),
-    (0, express_validator_1.check)('categoryName', 'categoryName is required').not().isEmpty(),
+    (0, express_validator_1.check)('categoryName', 'categoryName is required').notEmpty(),
     (0, express_validator_1.check)('categoryName', 'categoryName must be max ').isLength({ max: 45 }),
-    (0, express_validator_1.check)('photoType', 'photoType is required').not().isEmpty(),
+    (0, express_validator_1.check)('photoType', 'photoType is required').notEmpty(),
     (0, express_validator_1.check)('photoType', 'photoType must be max ').isLength({ max: 45 }),
     (0, express_validator_1.check)('photoType', 'photoType is enum "Photo, Document or KML').custom(valid_phototype_1.validPhotoType),
-    (0, express_validator_1.check)('categoriesParentId', 'categoriesParentId must be a number value').isNumeric(),
+    (0, express_validator_1.check)('categoriesParent_id', 'categoriesParent_id must be a number value').isNumeric(),
     valid_fields_middleware_1.ValidFields
 ], categoriesController.update);
 exports.categoriesRoutes.delete('/:id', [

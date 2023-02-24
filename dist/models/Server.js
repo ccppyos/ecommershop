@@ -21,17 +21,19 @@ const public_routes_1 = require("../routes/public.routes");
 const categories_routes_1 = require("../routes/categories.routes");
 const suppliers_routes_1 = require("../routes/suppliers.routes");
 const products_routes_1 = require("../routes/products.routes");
+const connectiondb_1 = require("../database/connectiondb");
+const seed_routes_1 = require("../routes/seed.routes");
 class Server {
     constructor() {
         this.path = {
             public: '/',
             categories: '/api/categories',
             suppliers: '/api/suppliers',
-            products: '/api/products'
+            products: '/api/products',
+            seed: '/api/seed',
         };
         // Inicializar atributos
         this.app = (0, express_1.default)();
-        //this.port = 3000;
         this.port = process.env.PORT || 3000;
         // Inicializar métodos
         //Conectar a la BD
@@ -43,12 +45,13 @@ class Server {
     }
     connectToDB() {
         return __awaiter(this, void 0, void 0, function* () {
-            // try {
-            //     await db.authenticate();
-            //     console.log('Data connected')
-            // } catch (error) {
-            //     throw new Error(error as any);
-            // }
+            try {
+                yield connectiondb_1.db.authenticate();
+                console.log('Data connected');
+            }
+            catch (error) {
+                throw new Error(error);
+            }
         });
     }
     setMiddlewares() {
@@ -59,6 +62,9 @@ class Server {
         this.app.use(express_1.default.json());
     }
     setRoutes() {
+        if (process.env.STATE === 'DEV') {
+            this.app.use(this.path.seed, seed_routes_1.seedRoutes);
+        }
         this.app.use(this.path.suppliers, suppliers_routes_1.suppliersRoutes);
         this.app.use(this.path.categories, categories_routes_1.categoriesRoutes);
         this.app.use(this.path.products, products_routes_1.productsRoutes);

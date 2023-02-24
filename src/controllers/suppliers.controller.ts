@@ -7,9 +7,9 @@ const supplierService = new SuppliersService()
 export class SuppliersController {
     async create(req: Request, res: Response) {
         try {
-            const { personName, address, email, phone} = req.body
+            const { supplierName, address, email, phone} = req.body
             const supplier = await supplierService.create({
-                personName, address, email, phone
+                supplierName, address, email, phone
             })
             success(res,supplier)
         } catch (error) {
@@ -38,8 +38,8 @@ export class SuppliersController {
     async update(req: Request, res: Response) {
         try {
             const { id } = req.params;
-            const { personName, address, email, phone } = req.body
-            const supplier = await supplierService.update(+id, { personName, address, email, phone });
+            const { supplierName, address, email, phone } = req.body
+            const supplier = await supplierService.update(+id, { supplierName, address, email, phone });
             success(res,supplier)
         } catch (error) {
              fail(res, error)

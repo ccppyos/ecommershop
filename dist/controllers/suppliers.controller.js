@@ -17,9 +17,9 @@ class SuppliersController {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const { personName, address, email, phone } = req.body;
+                const { supplierName, address, email, phone } = req.body;
                 const supplier = yield supplierService.create({
-                    personName, address, email, phone
+                    supplierName, address, email, phone
                 });
                 (0, apiResponses_1.success)(res, supplier);
             }
@@ -55,8 +55,8 @@ class SuppliersController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { id } = req.params;
-                const { personName, address, email, phone } = req.body;
-                const supplier = yield supplierService.update(+id, { personName, address, email, phone });
+                const { supplierName, address, email, phone } = req.body;
+                const supplier = yield supplierService.update(+id, { supplierName, address, email, phone });
                 (0, apiResponses_1.success)(res, supplier);
             }
             catch (error) {

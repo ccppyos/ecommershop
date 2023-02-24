@@ -21,7 +21,7 @@ const genCategories = () => {
         const category = {
             categoryName: category_1.CATEGORIES[i],
             photoType,
-            categoriesParentId: Math.floor(Math.random() * i)
+            //categoriesParent_id: Math.floor(Math.random() * i)
         };
         categories.push(category);
     }

@@ -1,6 +1,9 @@
 import { Sequelize } from "sequelize";
+import dotenv from 'dotenv';
 
-export const db = new Sequelize('saleproductsdb', 'root', '', {
+dotenv.config();
+
+export const db = new Sequelize(process.env.DB_NAME as string, process.env.DB_USER as string , process.env.DB_USER as string , {
     host: 'localhost',
     dialect: 'mysql',
     define: {

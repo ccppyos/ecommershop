@@ -17,9 +17,9 @@ class CategoriesController {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const { categoryName, photoType, categoriesParentId } = req.body;
+                const { categoryName, photoType, categoriesParent_id } = req.body;
                 const category = yield categoryService.create({
-                    categoryName, photoType, categoriesParentId
+                    categoryName, photoType, categoriesParent_id
                 });
                 (0, apiResponses_1.success)(res, category);
             }
@@ -32,11 +32,12 @@ class CategoriesController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const categories = yield categoryService.getAll();
-                const categoriesFormated = categories.map((category) => {
-                    const { _id, data } = category;
-                    return Object.assign({ _id }, data);
-                });
-                (0, apiResponses_1.success)(res, categoriesFormated);
+                // const categoriesFormated = categories.map((category: ICategory | any) => {
+                //     const { _id, data } = category as IData<ICategory>;
+                //     console.log(category)
+                //     return { _id, ...data }
+                // })
+                (0, apiResponses_1.success)(res, categories);
             }
             catch (error) {
                 (0, apiResponses_1.fail)(res, error);
@@ -59,8 +60,8 @@ class CategoriesController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { id } = req.params;
-                const { categoryName, photoType, categoriesParentId } = req.body;
-                const category = yield categoryService.update(+id, { categoryName, photoType, categoriesParentId });
+                const { categoryName, photoType, categoriesParent_id } = req.body;
+                const category = yield categoryService.update(+id, { categoryName, photoType, categoriesParent_id });
                 (0, apiResponses_1.success)(res, category);
             }
             catch (error) {

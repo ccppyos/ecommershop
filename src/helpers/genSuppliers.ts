@@ -1,4 +1,4 @@
-import { IPerson } from "../interfaces/person.interface";
+import { ISupplier } from "../interfaces/supplier.interface";
 import { NAVIGATION, STREET_AVENUE_NAMES, EMAIL_DOMAINS } from "../data/address";
 import { MALE_NAMES, FEMALE_NAMES, LAST_NAMES } from "../data/people";
 
@@ -19,7 +19,6 @@ const namesGen = (namesList: string[]): string[] => {
 
 const personNameGen = (): string[] => {
     //Seleccionar si son nombers de mujer u hombre
-
     let [firstName, secondName]: string[] = ["", ""];
 
     if (Math.floor(Math.random() * 2)) {
@@ -51,22 +50,20 @@ const addressGen = (): string => {
 }
 
 const phoneGen = (): string => {
-    return `+${Math.floor(Math.random() * (100000000000 - 9999999999)) + 1000000000}`
+    return `+${Math.floor(Math.random() * (100000000000 - 9999999999)) + 10000000000}`
 }
 
-export const genPersons = (n: number): IPerson[] => {
-    let persons: IPerson[] = [];
+export const genSuppliers = (n: number): ISupplier[] => {
+    let persons: ISupplier[] = [];
     for (let i: number = 0; i < n; i++) {
         const [firstName, secondName, lastName]: string[] = personNameGen();
-        const person: IPerson = {
-            personName: `${firstName} ${secondName} ${lastName}`,
+        const person: ISupplier = {
+            supplierName: `${firstName} ${secondName} ${lastName}`,
             address: addressGen(),
             email: emailGen(firstName, secondName, lastName),
             phone: phoneGen()
         }
         persons.push(person);
-
     }
-
     return persons
 }

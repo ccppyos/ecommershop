@@ -12,14 +12,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductsController = void 0;
 const apiResponses_1 = require("../helpers/apiResponses");
 const products_service_1 = require("../services/products.service");
-const productsService = new products_service_1.ProductsService(10);
+const productsService = new products_service_1.ProductsService();
 class ProductsController {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const { productName, weight, cannabisWeight, price, fee, sku, imageURL, barcode, description, cannabisVolume, isActive, createDate, updateDate, fullProductName, productSlug, salesPrice, inventory, discountAmount, productscol, categoryId, supplierId } = req.body;
+                const { name, weight, cannabisWeight, price, fee, sku, imageURL, barcode, description, cannabisVolume, isActive, createDate, updateDate, fullProductName, productSlug, salesPrice, inventory, discountAmount, productscol, category_id, supplier_id } = req.body;
                 const product = yield productsService.create({
-                    productName,
+                    name,
                     weight,
                     cannabisWeight,
                     price,
@@ -38,8 +38,8 @@ class ProductsController {
                     inventory,
                     discountAmount,
                     productscol,
-                    categoryId,
-                    supplierId
+                    category_id,
+                    supplier_id
                 });
                 (0, apiResponses_1.success)(res, product);
             }
@@ -52,7 +52,7 @@ class ProductsController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const products = yield productsService.getAll();
-                res.json(products);
+                (0, apiResponses_1.success)(res, products);
             }
             catch (error) {
                 (0, apiResponses_1.fail)(res, error);
@@ -75,9 +75,9 @@ class ProductsController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { id } = req.params;
-                const { productName, weight, cannabisWeight, price, fee, sku, imageURL, barcode, description, cannabisVolume, isActive, createDate, updateDate, fullProductName, productSlug, salesPrice, inventory, discountAmount, productscol, categoryId, supplierId } = req.body;
+                const { name, weight, cannabisWeight, price, fee, sku, imageURL, barcode, description, cannabisVolume, isActive, createDate, updateDate, fullProductName, productSlug, salesPrice, inventory, discountAmount, productscol, category_id, supplier_id } = req.body;
                 const product = yield productsService.update(+id, {
-                    productName,
+                    name,
                     weight,
                     cannabisWeight,
                     price,
@@ -96,8 +96,8 @@ class ProductsController {
                     inventory,
                     discountAmount,
                     productscol,
-                    categoryId,
-                    supplierId
+                    category_id,
+                    supplier_id
                 });
                 (0, apiResponses_1.success)(res, product);
             }

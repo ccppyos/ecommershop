@@ -17,13 +17,14 @@ categoriesRoutes.get('/:id', [
     check('id', 'Id param must be a number from 1 to 32').isInt({ min: 1, max: 32 }),
     ValidFields
 ], categoriesController.getOne);
+
 categoriesRoutes.post('/', [
-    check('categoryName', 'categoryName is required').not().isEmpty(),
+    check('categoryName', 'categoryName is required').notEmpty(),
     check('categoryName', 'categoryName must be max ').isLength({ max: 45 }),
-    check('photoType', 'photoType is required').not().isEmpty(),
+    check('photoType', 'photoType is required').notEmpty(),
     check('photoType', 'photoType must be max ').isLength({ max: 45 }),
     check('photoType', 'photoType is enum "Photo, Document or KML').custom(validPhotoType),
-    check('categoriesParentId', 'categoriesParentId must be a number value').isNumeric(),
+    check('categoriesParent_id', 'categoriesParent_id must be a number value').optional().isNumeric(),
     ValidFields
 ],
     categoriesController.create);
@@ -31,14 +32,14 @@ categoriesRoutes.put('/:id', [
     //En put algunos campos pueden ser opcionales
     check('id', 'Id param must be a number value').isNumeric(),
     check('id', 'Id param must be a number from 1 to 32').isInt({ min: 1, max: 32 }),
-    check('categoryName', 'categoryName is required').not().isEmpty(),
+    check('categoryName', 'categoryName is required').notEmpty(),
     check('categoryName', 'categoryName must be max ').isLength({ max: 45 }),
-    check('photoType', 'photoType is required').not().isEmpty(),
+    check('photoType', 'photoType is required').notEmpty(),
     check('photoType', 'photoType must be max ').isLength({ max: 45 }),
     check('photoType', 'photoType is enum "Photo, Document or KML').custom(validPhotoType),
-    check('categoriesParentId', 'categoriesParentId must be a number value').isNumeric(),
+    check('categoriesParent_id', 'categoriesParent_id must be a number value').isNumeric(),
     ValidFields
-],
+], 
     categoriesController.update);
 categoriesRoutes.delete('/:id', [
     check('id', 'Id param must be a number value').isNumeric(),
